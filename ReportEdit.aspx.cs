@@ -19,6 +19,7 @@ public partial class ReportEdit : System.Web.UI.Page
 
     private _entity.bizCell.CellReportDetails _details = null;
     private _entity.bizCell.CellReport _header;
+    private _entity.bizCell.CellServiceTimePlaceList _timePlaceList;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -59,6 +60,7 @@ public partial class ReportEdit : System.Web.UI.Page
     {
         _header = GetRptCell();
         _details = GetRptCellMember();
+        _timePlaceList = GetCellServiceTimePlaceList();
     }
 
     private void ShowHeader()
@@ -213,6 +215,11 @@ public partial class ReportEdit : System.Web.UI.Page
         return (_entity.bizCell.CellReportDetails)businessObject;
     }
 
+    private _entity.bizCell.CellServiceTimePlaceList GetCellServiceTimePlaceList()
+    {
+        return _entity.bizCell.CellServiceTimePlaceList.Get(false);
+    }
+
     protected void btn_save_Click(object sender, ImageClickEventArgs e)
     {
 
@@ -238,5 +245,17 @@ public partial class ReportEdit : System.Web.UI.Page
     {
         ScriptManager.RegisterClientScriptBlock(this, GetType(), "_client_script_alter_", string.Format("$.messagebox.show('{0}');", message), true);
     }
- 
+
+    protected void ListView1_ItemDataBound(object sender, ListViewItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListViewItemType.DataItem)
+        {
+            var ddlTimePlaces = e.Item.FindControl("ddlTimePlaces") as DropDownList;
+            ddlTimePlaces.DataTextField = "Value";
+            ddlTimePlaces.DataValueField = "Key";
+            ddlTimePlaces.DataSource = _timePlaceList;
+            
+            ddlTimePlaces.DataBind();
+        }
+    }
 }

@@ -93,11 +93,13 @@
     <th>이름</th>
     <th>출석</th>
     <th>불참사유/특이사항</th>
+    <th>주일예배장소</th>
     <th>주일출석 특이사항</th>
     </tr>
     </thead>
     <tbody>
-     <asp:ListView ID="ListView1" runat="server" ItemPlaceholderID="itemplaceholder" DataKeyNames="ID" > 
+     <asp:ListView ID="ListView1" runat="server" ItemPlaceholderID="itemplaceholder" 
+            DataKeyNames="ID" onitemdatabound="ListView1_ItemDataBound"> 
        <LayoutTemplate>
         <asp:PlaceHolder ID="itemplaceholder" runat="server" />
     </LayoutTemplate>
@@ -107,6 +109,10 @@
         <td class="StyleContext2"> <%#Eval("MemberName")%></td>
         <td><asp:CheckBox ID="txt_attendence" runat="server" Checked ='<%#Eval("Attendence")%>'  /></td>
         <td><asp:TextBox ID ="txt_reason" runat="server" Text='<%#Eval("Reason")%>' CssClass="inputArea" /></td>
+        <td align="center">
+            <asp:DropDownList ID="ddlTimePlaces" runat="server">
+            </asp:DropDownList>
+        </td>
         <td><asp:TextBox ID ="txt_memo" runat="server" Text='<%#Eval("Memo")%>'  CssClass="inputArea" /></td>
        
        
