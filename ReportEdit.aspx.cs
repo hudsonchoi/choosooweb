@@ -126,6 +126,8 @@ public partial class ReportEdit : System.Web.UI.Page
                 info.Attendence = ((CheckBox)dataItem.FindControl("txt_attendence")).Checked;
                 info.Memo = ((TextBox)dataItem.FindControl("txt_memo")).Text;
                 info.Reason =((TextBox)dataItem.FindControl("txt_reason")).Text;
+                if (((DropDownList)dataItem.FindControl("ddlTimePlaces")).SelectedValue != null)
+                   info.ServiceTimePlaceID = int.Parse(((DropDownList)dataItem.FindControl("ddlTimePlaces")).SelectedValue);
             }
         }
     }
@@ -253,9 +255,10 @@ public partial class ReportEdit : System.Web.UI.Page
             var ddlTimePlaces = e.Item.FindControl("ddlTimePlaces") as DropDownList;
             ddlTimePlaces.DataTextField = "Value";
             ddlTimePlaces.DataValueField = "Key";
-            ddlTimePlaces.DataSource = _timePlaceList;
-            
+            ddlTimePlaces.DataSource = _timePlaceList; 
             ddlTimePlaces.DataBind();
+            var ltrSelected = e.Item.FindControl("ltrSelected") as Literal;
+            ddlTimePlaces.SelectedValue = ltrSelected.Text;
         }
     }
 }

@@ -110,6 +110,7 @@
         <td><asp:CheckBox ID="txt_attendence" runat="server" Checked ='<%#Eval("Attendence")%>'  /></td>
         <td><asp:TextBox ID ="txt_reason" runat="server" Text='<%#Eval("Reason")%>' CssClass="inputArea" /></td>
         <td align="center">
+            <asp:Literal ID="ltrSelected" runat="server" Visible="false" Text='<%#Eval("ServiceTimePlaceID")%>'></asp:Literal>
             <asp:DropDownList ID="ddlTimePlaces" runat="server">
             </asp:DropDownList>
         </td>
